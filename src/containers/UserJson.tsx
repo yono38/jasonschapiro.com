@@ -24,27 +24,20 @@ export default function UserJson(props: any) {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    function fetchUser(handle: string) {
-      fetch(`https://api.github.com/users/${handle}`)
-        .then(function (response) {
-          if (response.status === 404) {
-            setError(`Github user ${githubHandle} not found`);
-            return;
-          } else if (response.status !== 200) {
-            setError(`Looks like there was a problem. Status Code: ${response.status}`);
-            return;
-          }
-
-          // Examine the text in the response
-          response.json().then(function (data: GithubUser) {
-            console.log(data);
-            setUserInfo(data);
-          });
-        })
-        .catch(function (err) {
-          console.log('Fetch Error :-S', err);
-          setError(err.message);
-        });
+    async function fetchUser(handle: string) {
+      try {
+        const response = await fetch(`https://api.github.com/users/${handle}`);
+        if (response.status === 404) {
+          setError(`Github user ${githubHandle} not found`);
+        } else if (response.status !== 200) {
+          setError(`Looks like there was a problem. Status Code: ${response.status}`);
+        } else {
+          const parsedData: GithubUser = await response.json();
+          setUserInfo(parsedData);
+        }
+      } catch (err) {
+        setError(err.message);
+      }
     }
     if (githubHandle != null) {
       fetchUser(githubHandle);
