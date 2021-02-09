@@ -12,6 +12,8 @@ export default function JasonJson() {
     return <Redirect to={`/jsonify/${githubHandle}`} />;
   }
 
+  // Keep up to date automatically
+  const yearsExp = new Date().getFullYear() - 2011;
   return (
     <Container>
       <Header>
@@ -23,9 +25,9 @@ export default function JasonJson() {
           <KeyPair keyString="name" pairValue="Jason Schapiro" />
           <KeyPair keyString="location" pairValue="Amsterdam, Netherlands" />
           <KeyPair keyString="github_handle" pairValue="yono38" />
-          <KeyPair keyString="current_position" pairValue="Head of Tech & Product" />
-          <KeyPair keyString="current_company" pairValue="WorldCover" />
-          <KeyPair keyString="years_experience" pairValue={9} />
+          <KeyPair keyString="current_position" pairValue="Sr. Software Engineer" />
+          <KeyPair keyString="current_company" pairValue="ChartHop" />
+          <KeyPair keyString="years_experience" pairValue={yearsExp} />
           <KeyArray
             keyString="skills"
             arrayValues={[
